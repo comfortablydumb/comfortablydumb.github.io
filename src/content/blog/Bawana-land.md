@@ -3,7 +3,7 @@ title: "Bawana land"
 description: "Good old days"
 pubDate: 2022-10-22
 category: "College"
-tags: []
+tags: ["College"]
 draft: false
 ---
 
