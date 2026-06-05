@@ -28,9 +28,6 @@ export const NAV = [
 export const SOCIALS = {
   email: "samarthjindal.dce@gmail.com",
   linkedin: "https://www.linkedin.com/in/jindalsamarth",
-  // WhatsApp: international format, digits only (country code + number, no +, spaces, or dashes).
-  // Example: India number +91 98765 43210 -> "919876543210".
-  whatsapp: "919289737250",
   // Optional, leave empty string to hide.
   twitter: "",
 } as const;
@@ -43,8 +40,10 @@ export const CURRENT_ROLE = {
     "Building and operating large-scale distributed platforms, owning data pipelines, streaming infrastructure, and the reliability of services handling billions of events.",
 } as const;
 
+export const INTRO_GREETING = "Hi, I'm Samarth.";
+
 export const INTRO =
-  "Hi, I'm Samarth. This is my corner of the internet where I write about whatever I find interesting. You'll find thoughts on software engineering, distributed systems, technology, careers, business, coffee and the occasional random rabbit hole I can't resist exploring.";
+  "This is my corner of the internet where I write about whatever I find interesting. You'll find thoughts on software engineering, distributed systems, technology, careers, business, coffee and the occasional random rabbit hole I can't resist exploring.";
 
 /** Technical expertise shown on the home page. */
 export const EXPERTISE: { name: string; detail: string }[] = [
@@ -114,7 +113,7 @@ export const TIMELINE: TimelineItem[] = [
     org: "Sprinklr",
     kind: "work",
     points: [
-      "Build the backend systems for Sprinklr Insights, a customer intelligence tool, where we ingest and process consumer signals from 30+ channels and hundreds of thousands of media sources into something query-able and reliable.",
+      "Building backend systems for Sprinklr Insights, a customer intelligence tool, where we ingest and process consumer signals from 30+ channels and hundreds of media sources into something query-able and reliable.",
       "Own architecture and reliability decisions for services that large global enterprises depend on, where an outage is someone else's bad morning.",
       "Joined as an intern and grew through several engineering roles to Senior Software Development Engineer, taking on progressively larger systems along the way.",
     ],

@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PostCard from "../components/PostCard.astro";
 import { getPosts } from "../utils/posts";
-import { SITE, INTRO } from "../config";
+import { SITE, INTRO, INTRO_GREETING } from "../config";
 
 const posts = (await getPosts()).slice(0, 5);
 ---
@@ -10,6 +10,7 @@ const posts = (await getPosts()).slice(0, 5);
 <BaseLayout>
   <section class="intro">
     <h1 class="visually-hidden">{SITE.title}</h1>
+    <p class="intro-lead">{INTRO_GREETING}</p>
     <p class="intro-lead">{INTRO}</p>
   </section>
 
@@ -40,6 +41,9 @@ const posts = (await getPosts()).slice(0, 5);
   .intro-lead {
     font-size: 1.2rem;
     line-height: 1.55;
+  }
+  .intro-lead + .intro-lead {
+    margin-top: 1rem;
   }
   .row {
     display: flex;
