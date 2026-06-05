@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeader from "../components/PageHeader.astro";
 import Timeline from "../components/Timeline.astro";
+import { INTERESTS } from "../config";
 ---
 
 <BaseLayout
@@ -15,21 +16,33 @@ import Timeline from "../components/Timeline.astro";
 
   <div class="prose">
     <p>
-      I'm currently a senior software engineer at Sprinklr, where my work revolves around
-      scalable systems and backend engineering. I've previously worked at the University of
-      Cambridge, 88 Ventures, and DRDO.
+      I'm currently a Senior Software Engineer at Sprinklr, where I work on large-scale backend
+      systems and distributed platforms. Previously, I've worked with the University of Cambridge,
+      88 Ventures, and DRDO.
     </p>
     <p>
-      At Sprinklr I build customer feedback management platforms, social listening and research
-      insight products, and tooling to understand and reduce customer churn. What I care about
-      most is the layer underneath: the backend systems that have to stay reliable and fast as
-      they scale.
+      At Sprinklr, I currently build customer feedback management products and have previously
+      worked on social listening platforms and internal systems focused on understanding and
+      reducing customer churn. I'm particularly interested in building reliable systems that scale,
+      improving user experience, and solving complex engineering problems at scale.
+    </p>
+    <p>
+      Outside work, I enjoy writing about technology, distributed systems, careers, business,
+      coffee, watches, and whatever rabbit hole has captured my attention recently. This website is
+      my attempt to think in public and document things I learn along the way.
     </p>
   </div>
 
   <section class="section">
     <h2>Experience &amp; education</h2>
     <Timeline />
+  </section>
+
+  <section class="section">
+    <h2>Interests</h2>
+    <ul class="interests">
+      {INTERESTS.map((item) => <li>{item}</li>)}
+    </ul>
   </section>
 </BaseLayout>
 
@@ -39,5 +52,20 @@ import Timeline from "../components/Timeline.astro";
   }
   .section h2 {
     margin-bottom: 1.25rem;
+  }
+  .interests {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .interests li {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
   }
 </style>

@@ -114,7 +114,7 @@ export const TIMELINE: TimelineItem[] = [
     org: "Sprinklr",
     kind: "work",
     points: [
-      "Build and scale backend platforms for customer feedback management, social listening and research insight, and customer churn tooling.",
+      "Build and scale backend platforms powering customer feedback management, social listening, research insights, and customer retention workflows.",
       "Grew through three roles to Senior Software Development Engineer, owning the reliability of systems that run at scale.",
     ],
   },
@@ -138,6 +138,16 @@ export const TECHNICAL_INTERESTS = [
   "Reliability engineering and incident response",
   "Performance debugging and capacity planning",
   "Developer platforms and operational tooling",
+];
+
+/** Short interest tags shown on the About page. */
+export const INTERESTS = [
+  "Distributed Systems",
+  "Product Engineering",
+  "AI Applications",
+  "Startups & Business",
+  "Coffee",
+  "Watches",
 ];
 
 export const PERSONAL_INTERESTS =
