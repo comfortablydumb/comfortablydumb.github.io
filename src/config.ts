@@ -114,17 +114,20 @@ export const TIMELINE: TimelineItem[] = [
     org: "Sprinklr",
     kind: "work",
     points: [
-      "Build and scale backend platforms powering customer feedback management, social listening, research insights, and customer retention workflows.",
-      "Grew through three roles to Senior Software Development Engineer, owning the reliability of systems that run at scale.",
+      "Engineer the backend systems behind Sprinklr Insights, ingesting and processing consumer signals from 30+ channels and hundreds of thousands of media sources into something query-able and reliable.",
+      "Design distributed, data-intensive pipelines for social listening, voice-of-customer, and competitive intelligence, keeping them fast and predictable under heavy, bursty load.",
+      "Own architecture and reliability decisions for services that large global enterprises depend on, where an outage is someone else's bad morning.",
+      "Joined as an intern and grew through several engineering roles to Senior Software Development Engineer, taking on progressively larger systems along the way.",
     ],
   },
   {
     period: "2020 – 2024",
     title: "B.Tech, Computer Engineering",
-    org: "Delhi Technological University (DTU)",
+    org: "DTU (formerly DCE)",
     kind: "education",
     points: [
-      "Studied computer engineering with a focus on systems and software.",
+      "Earned a B.Tech in Computer Engineering with a 9.5/10 GPA, finishing the degree in 3.5 years rather than four.",
+      "Concentrated on systems, backend, and distributed computing, with internships and industry research running alongside coursework.",
     ],
   },
 ];
