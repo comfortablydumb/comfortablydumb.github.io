@@ -2,10 +2,8 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
-// Used for canonical URLs, sitemap, RSS, and Open Graph tags.
-// Currently set to the GitHub Pages URL. When you buy a custom domain,
-// change this to "https://yourdomain.com" and add a public/CNAME file.
-const SITE_URL = "https://comfortablydumb.github.io";
+// Production domain. Used for canonical URLs, sitemap, RSS, and Open Graph tags.
+const SITE_URL = "https://samarthjindal.com";
 
 // https://astro.build/config
 export default defineConfig({

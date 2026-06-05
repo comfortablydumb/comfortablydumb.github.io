@@ -7,7 +7,16 @@
       "Bash(npm run:*)",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "Bash(git -c:*)"
+      "Bash(git -c:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git remote:*)",
+      "Bash(git push:*)",
+      "Bash(git config:*)",
+      "Bash(printf \"protocol=https\\\\nhost=github.com\\\\n\\\\n\")",
+      "Bash(git credential-osxkeychain:*)",
+      "Read(//Users/samarth.jindal/.ssh/**)",
+      "Bash(ssh -o StrictHostKeyChecking=no -o BatchMode=yes -T git@github.com)",
+      "Bash(git credential:*)"
     ]
   }
 }

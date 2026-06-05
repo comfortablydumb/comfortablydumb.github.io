@@ -10,8 +10,7 @@ export const SITE = {
     "Software Engineer focused on distributed systems, large-scale platforms, cloud infrastructure, and operational excellence.",
   description:
     "Samarth Jindal — software engineer building reliable distributed systems at scale. Writing on Kafka, Kubernetes, MongoDB, production engineering, and system design.",
-  // GitHub Pages URL for now. Change to "https://yourdomain.com" once you buy a custom domain.
-  url: "https://comfortablydumb.github.io",
+  url: "https://samarthjindal.com",
   author: "Samarth Jindal",
   locale: "en_US",
   // Default social share image (relative to /public). Replace with a 1200x630 PNG
