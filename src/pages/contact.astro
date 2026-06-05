@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { SOCIALS } from "../config";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Samarth Jindal — open to engineering conversations, opportunities, and collaboration."
+>
+  <PageHeader
+    title="Get in touch"
+    description="Open to conversations about distributed systems, reliability, and interesting engineering problems."
+  />
+
+  <ul class="links">
+    <li><a href={`mailto:${SOCIALS.email}`}>{SOCIALS.email}</a></li>
+    <li>
+      <a href={SOCIALS.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </li>
+    <li>
+      <a href={`https://wa.me/${SOCIALS.whatsapp}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </li>
+  </ul>
+</BaseLayout>
+
+<style>
+  .links {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+    font-size: 1.05rem;
+  }
+</style>

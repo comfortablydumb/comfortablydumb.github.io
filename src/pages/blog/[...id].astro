@@ -1,0 +1,124 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import { getPosts, readingTime, slugifyTag } from "../../utils/posts";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const mins = d.readingTime ?? readingTime(post.body);
+
+const all = await getPosts();
+const related = all
+  .filter((p) => p.id !== post.id)
+  .filter(
+    (p) =>
+      p.data.category === d.category ||
+      p.data.tags.some((t) => d.tags.includes(t)),
+  )
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  type="article"
+  publishDate={d.pubDate}
+  modifiedDate={d.updatedDate}
+  tags={d.tags}
+>
+  <article>
+    <header class="post-head">
+      <h1>{d.title}</h1>
+      <p class="post-meta text-muted">
+        <FormattedDate date={d.pubDate} /> · {mins} min read · {d.category}
+        {d.updatedDate && <> · updated <FormattedDate date={d.updatedDate} /></>}
+      </p>
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <footer class="post-foot">
+      <p class="tags">
+        {d.tags.map((t) => <a href={`/tags/${slugifyTag(t)}`}>#{t}</a>)}
+      </p>
+      <a href="/blog" class="back">← All writing</a>
+    </footer>
+
+    {
+      related.length > 0 && (
+        <section class="related">
+          <h2>Related</h2>
+          <ul>
+            {related.map((p) => (
+              <li>
+                <a href={`/blog/${p.id}`}>{p.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </article>
+</BaseLayout>
+
+<style>
+  .post-head {
+    margin-bottom: 1.5rem;
+  }
+  .post-meta {
+    font-size: 0.88rem;
+    margin-top: 0.4rem;
+  }
+  .post-foot {
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 0 0 0.75rem;
+  }
+  .tags a {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .tags a:hover {
+    color: var(--link);
+  }
+  .back {
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+  .back:hover {
+    color: var(--link);
+  }
+  .related {
+    margin-top: 2rem;
+  }
+  .related ul {
+    list-style: none;
+    padding: 0;
+  }
+  .related a {
+    text-decoration: none;
+  }
+  .related a:hover {
+    text-decoration: underline;
+  }
+</style>

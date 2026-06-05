@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import { getPosts } from "../utils/posts";
+import { SITE, INTRO } from "../config";
+
+const posts = (await getPosts()).slice(0, 5);
+---
+
+<BaseLayout>
+  <section class="intro">
+    <h1 class="visually-hidden">{SITE.title}</h1>
+    <p class="intro-lead">{INTRO}</p>
+  </section>
+
+  <section>
+    <div class="row">
+      <h2>Notes</h2>
+      <a href="/blog" class="more">all notes →</a>
+    </div>
+    {
+      posts.length > 0 ? (
+        <div class="list">
+          {posts.map((post) => (
+            <PostCard post={post} compact />
+          ))}
+        </div>
+      ) : (
+        <p class="text-muted">Articles coming soon.</p>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .intro-lead {
+    font-size: 1.2rem;
+    line-height: 1.55;
+  }
+  .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .row h2 {
+    margin: 0;
+  }
+  .more {
+    font-size: 0.88rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .more:hover {
+    color: var(--link);
+  }
+  .list {
+    margin-top: 0.75rem;
+  }
+</style>

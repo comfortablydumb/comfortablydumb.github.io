@@ -1,0 +1,30 @@
+---
+// Privacy-friendly analytics. Configure via environment variables at build time.
+// Plausible:   set PUBLIC_PLAUSIBLE_DOMAIN (e.g. samarthjindal.com)
+// Cloudflare:  set PUBLIC_CF_BEACON_TOKEN (Web Analytics token)
+// If neither is set, nothing is injected.
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+const cfToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+---
+
+{
+  plausibleDomain && (
+    <script
+      is:inline
+      defer
+      data-domain={plausibleDomain}
+      src="https://plausible.io/js/script.js"
+    />
+  )
+}
+
+{
+  cfToken && (
+    <script
+      is:inline
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={`{"token": "${cfToken}"}`}
+    />
+  )
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" role="img" aria-label="Consumer lag climbing then draining over time">
+  <rect width="800" height="400" fill="#f4f5f8"/>
+  <!-- axes -->
+  <line x1="70" y1="40" x2="70" y2="340" stroke="#9098a3" stroke-width="2"/>
+  <line x1="70" y1="340" x2="760" y2="340" stroke="#9098a3" stroke-width="2"/>
+  <!-- axis labels -->
+  <text x="20" y="195" font-family="system-ui, sans-serif" font-size="18" fill="#565d6b" transform="rotate(-90 20 195)">consumer lag</text>
+  <text x="400" y="380" font-family="system-ui, sans-serif" font-size="18" fill="#565d6b" text-anchor="middle">time →</text>
+  <!-- lag curve: flat, climb, peak, drain -->
+  <polyline
+    points="70,320 230,318 320,300 420,140 470,70 520,60 560,150 620,300 720,318"
+    fill="none" stroke="#2563eb" stroke-width="3" stroke-linejoin="round"/>
+  <!-- incident markers -->
+  <circle cx="420" cy="140" r="5" fill="#dc2626"/>
+  <text x="430" y="125" font-family="system-ui, sans-serif" font-size="14" fill="#dc2626">page fires</text>
+  <circle cx="520" cy="60" r="5" fill="#dc2626"/>
+  <text x="500" y="48" font-family="system-ui, sans-serif" font-size="14" fill="#dc2626" text-anchor="middle">plan pinned</text>
+  <text x="640" y="300" font-family="system-ui, sans-serif" font-size="14" fill="#16a34a">drained</text>
+</svg>

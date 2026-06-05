@@ -1,0 +1,287 @@
+/* ============================================================
+   Minimal, Bear Blog-inspired styles.
+   System fonts, a single narrow column, no gradients or motion.
+   Light is default; [data-theme="dark"] overrides.
+   ============================================================ */
+:root {
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+    monospace;
+
+  --width: 42rem; /* main content column */
+
+  --bg: #ffffff;
+  --bg-subtle: #f7f7f7;
+  --text: #2a2a2a;
+  --text-muted: #6b7280;
+  --text-faint: #9098a3;
+  --link: #2563eb;
+  --link-visited: #6d4aa0;
+  --border: #e3e3e3;
+  --code-bg: #f4f4f4;
+  --selection: #d7e3ff;
+}
+
+[data-theme="dark"] {
+  --bg: #1b1c1e;
+  --bg-subtle: #232427;
+  --text: #cdcfd2;
+  --text-muted: #969aa1;
+  --text-faint: #6b7280;
+  --link: #7aa2f7;
+  --link-visited: #b294dd;
+  --border: #34363a;
+  --code-bg: #26282b;
+  --selection: #2b3a5e;
+}
+
+/* ---------- reset / base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: var(--width);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+::selection {
+  background: var(--selection);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.25;
+  font-weight: 700;
+}
+h1 {
+  font-size: 1.7rem;
+  margin-bottom: 0.25rem;
+}
+h2 {
+  font-size: 1.3rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+h3 {
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+}
+
+p {
+  margin: 0.8rem 0;
+}
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+a:hover {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+pre {
+  background: var(--code-bg);
+  padding: 0.9rem 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 1.2rem 0;
+}
+pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1rem;
+  margin: 1.2rem 0;
+  color: var(--text-muted);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+ul,
+ol {
+  padding-left: 1.4rem;
+}
+li {
+  margin: 0.25rem 0;
+}
+
+/* ---------- layout helpers (kept for compatibility, simplified) ---------- */
+.container,
+.container-wide {
+  width: 100%;
+}
+
+.section {
+  padding-block: 1.25rem;
+}
+
+.section-alt {
+  background: none;
+  border: none;
+}
+
+.lead {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.eyebrow {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Personality utilities are intentionally neutralized in the minimal theme. */
+.gradient-text {
+  color: inherit;
+  background: none;
+}
+.has-glow::before {
+  display: none;
+}
+[data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ---------- buttons / tags ---------- */
+.btn {
+  display: inline-block;
+  font-size: 0.92rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--bg);
+  color: var(--link);
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover {
+  border-color: var(--link);
+}
+.btn-primary {
+  background: var(--link);
+  border-color: var(--link);
+  color: #fff;
+}
+.btn-primary:hover {
+  opacity: 0.9;
+  color: #fff;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+a.tag:hover {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+.pill {
+  display: inline-block;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ---------- cards / grids (flattened) ---------- */
+.card {
+  display: block;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.grid {
+  display: block;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- prose (article body) ---------- */
+.prose > * + * {
+  margin-top: 1rem;
+}
+.prose h2 {
+  margin-top: 2rem;
+}
+.prose img {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.prose th,
+.prose td {
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+}

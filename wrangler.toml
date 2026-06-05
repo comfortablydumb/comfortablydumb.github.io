@@ -1,0 +1,5 @@
+# Cloudflare Pages configuration.
+# Enables `wrangler pages deploy` and the Pages Git integration to find the build output.
+name = "samarth-jindal-website"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "dist"

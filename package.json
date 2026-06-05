@@ -1,0 +1,22 @@
+{
+  "name": "samarth-jindal-website",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Personal website of Samarth Jindal — software engineer focused on distributed systems and cloud infrastructure.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "new-post": "node scripts/new-post.mjs",
+    "deploy": "astro build && wrangler pages deploy dist",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.4.1",
+    "astro": "^5.13.0",
+    "typescript": "^5.7.3"
+  }
+}

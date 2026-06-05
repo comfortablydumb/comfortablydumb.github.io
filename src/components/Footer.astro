@@ -1,0 +1,39 @@
+---
+import { SITE, SOCIALS } from "../config";
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <nav class="footer-links" aria-label="Footer">
+    <a href={`mailto:${SOCIALS.email}`}>Email</a>
+    <a href={SOCIALS.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a href={`https://wa.me/${SOCIALS.whatsapp}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    <a href="/rss.xml">RSS</a>
+  </nav>
+  <p class="footer-note">© {year} {SITE.author}</p>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+  .footer-links a:hover {
+    color: var(--link);
+  }
+  .footer-note {
+    color: var(--text-faint);
+    margin-top: 0.75rem;
+  }
+</style>

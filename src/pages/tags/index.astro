@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import { getTags, slugifyTag } from "../../utils/posts";
+
+const tags = await getTags();
+---
+
+<BaseLayout title="Tags" description="Browse articles by topic.">
+  <PageHeader eyebrow="Topics" title="Tags" description="Browse writing by topic." />
+
+  <div class="container section">
+    <div class="tag-cloud">
+      {
+        tags.map(({ tag, count }) => (
+          <a class="tag-link" href={`/tags/${slugifyTag(tag)}`}>
+            #{tag} <span class="count">{count}</span>
+          </a>
+        ))
+      }
+      {tags.length === 0 && <p class="text-muted">No tags yet.</p>}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .tag-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg);
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    text-decoration: none;
+  }
+  .tag-link:hover {
+    border-color: var(--link);
+    color: var(--link);
+  }
+  .count {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-faint);
+  }
+</style>

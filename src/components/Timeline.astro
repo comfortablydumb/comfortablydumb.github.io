@@ -1,0 +1,49 @@
+---
+import { TIMELINE } from "../config";
+---
+
+<div class="timeline">
+  {
+    TIMELINE.map((item) => (
+      <div class="entry">
+        <div class="entry-head">
+          <span class="entry-title">
+            {item.title} · {item.org}
+          </span>
+          <span class="entry-period">{item.period}</span>
+        </div>
+        <ul class="entry-points text-muted">
+          {item.points.map((p) => (
+            <li>{p}</li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .timeline {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .entry-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    align-items: baseline;
+  }
+  .entry-title {
+    font-weight: 600;
+  }
+  .entry-period {
+    font-size: 0.85rem;
+    color: var(--text-faint);
+    font-variant-numeric: tabular-nums;
+  }
+  .entry-points {
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+  }
+</style>
