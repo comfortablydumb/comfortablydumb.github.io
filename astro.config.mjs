@@ -3,7 +3,7 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
 // Production domain. Used for canonical URLs, sitemap, RSS, and Open Graph tags.
-const SITE_URL = "https://samarthjindal.com";
+const SITE_URL = "https://www.samarthjindal.com";
 
 // https://astro.build/config
 export default defineConfig({
