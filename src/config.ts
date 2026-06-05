@@ -9,7 +9,7 @@ export const SITE = {
   tagline:
     "Software Engineer focused on distributed systems, large-scale platforms, cloud infrastructure, and operational excellence.",
   description:
-    "Samarth Jindal — software engineer building reliable distributed systems at scale. Writing on Kafka, Kubernetes, MongoDB, production engineering, and system design.",
+    "Samarth Jindal, software engineer building reliable distributed systems at scale. Writing on Kafka, Kubernetes, MongoDB, production engineering, and system design.",
   url: "https://www.samarthjindal.com",
   author: "Samarth Jindal",
   locale: "en_US",
@@ -26,21 +26,21 @@ export const NAV = [
 ] as const;
 
 export const SOCIALS = {
-  email: "samarth@example.com",
-  linkedin: "https://www.linkedin.com/in/samarthjindal",
+  email: "samarthjindal.dce@gmail.com",
+  linkedin: "https://www.linkedin.com/in/jindalsamarth",
   // WhatsApp: international format, digits only (country code + number, no +, spaces, or dashes).
   // Example: India number +91 98765 43210 -> "919876543210".
-  whatsapp: "919876543210",
+  whatsapp: "919289737250",
   // Optional, leave empty string to hide.
   twitter: "",
 } as const;
 
 export const CURRENT_ROLE = {
-  title: "Software Engineer",
+  title: "Senior Software Development Engineer",
   company: "Sprinklr",
-  location: "Remote / India",
+  location: "Gurugram, India",
   blurb:
-    "Building and operating large-scale distributed platforms — owning data pipelines, streaming infrastructure, and the reliability of services handling billions of events.",
+    "Building and operating large-scale distributed platforms, owning data pipelines, streaming infrastructure, and the reliability of services handling billions of events.",
 } as const;
 
 export const INTRO =
@@ -109,40 +109,40 @@ export type TimelineItem = {
 
 export const TIMELINE: TimelineItem[] = [
   {
-    period: "2023 — Present",
-    title: "Software Engineer",
+    period: "2023 – Present",
+    title: "Senior Software Development Engineer",
     org: "Sprinklr",
     kind: "work",
     points: [
-      "Own streaming data pipelines processing billions of events per day across Kafka and downstream stores.",
-      "Led reliability initiatives that cut pipeline incident frequency and reduced mean time to recovery.",
-      "Designed sharding and indexing strategies for multi-terabyte MongoDB clusters.",
+      "Backend owner for large-scale Customer Feedback Management platforms, taking CFM from zero to one through a Forrester demo and GA launch.",
+      "Architected a multi-tenant reporting engine serving 500K+ daily requests and a vendor cost attribution system managing $60M in annual spend.",
+      "Lead L1 on-call for a $180M+ ARR product, sustaining 99.99% availability and cutting downtime incidents by 92%.",
     ],
   },
   {
-    period: "2021 — 2023",
-    title: "Software Engineer",
-    org: "Previous Company",
+    period: "2023",
+    title: "Research Assistant (Part-time)",
+    org: "University of Cambridge",
     kind: "work",
     points: [
-      "Built backend services on Kubernetes serving high-traffic APIs.",
-      "Improved p99 latency through caching, query optimization, and load shedding.",
+      "Designed a data-driven mentor and mentee matching framework from research on entrepreneurship and MSME growth.",
+      "Analyzed field data from 2,500+ MSMEs and built a proof-of-concept matching platform.",
     ],
   },
   {
-    period: "2017 — 2021",
-    title: "B.Tech, Computer Science",
-    org: "University",
+    period: "2020 – 2024",
+    title: "B.Tech, Computer Engineering",
+    org: "Delhi Technological University (DTU)",
     kind: "education",
     points: [
-      "Graduated with focus on systems, networks, and databases.",
-      "Built side projects exploring distributed coordination and storage.",
+      "Graduated in the top 1% with a CGPA of 9.50/10, focusing on systems, networks, and databases.",
+      "Founder and licensee of TEDxDTU, leading an 80-member team to run India's largest university-level TEDx event.",
     ],
   },
 ];
 
 export const CAREER_GOALS =
-  "Over the next few years I want to deepen my impact on platform reliability and grow toward technical leadership — eventually bridging engineering depth with business strategy, which is part of why I am exploring an MBA.";
+  "Over the next few years I want to deepen my impact on platform reliability and grow toward technical leadership. I care about where engineering meets business, but after being admitted to ISB's MBA on a full scholarship I chose to stay on the engineering path.";
 
 export const TECHNICAL_INTERESTS = [
   "Streaming systems and event-driven architecture",
