@@ -3,7 +3,7 @@ title: "The Most Important Button We Didn't Have"
 description: "I spent 48 hours firefighting an incident and came away believing every large system needs kill switches."
 pubDate: 2026-05-25
 category: "On-call Stories"
-tags: ["On-call Stories"]
+tags: ["On-call Stories", "Engineering"]
 draft: false
 ---
 
