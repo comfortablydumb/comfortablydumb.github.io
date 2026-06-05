@@ -44,7 +44,7 @@ export const CURRENT_ROLE = {
 } as const;
 
 export const INTRO =
-  "Hi, I'm Samarth. This is my corner of the internet where I write about whatever I find interesting. You'll find thoughts on software engineering, distributed systems, technology, careers, business, coffee, watches, and the occasional random rabbit hole I can't resist exploring.";
+  "Hey, I'm Samarth — software engineer by trade, incurably curious by default. This is where I think out loud about distributed systems, technology, careers, and business, plus the things that fill the margins: coffee, watches, and rabbit holes I have no business going down.";
 
 /** Technical expertise shown on the home page. */
 export const EXPERTISE: { name: string; detail: string }[] = [

@@ -20,7 +20,8 @@
       "Bash(dig +short www.samarthjindal.com)",
       "Bash(dig +short samarthjindal.com)",
       "Bash(curl -sI -m 15 https://www.samarthjindal.com)",
-      "Bash(curl -sI -m 15 https://samarthjindal.com)"
+      "Bash(curl -sI -m 15 https://samarthjindal.com)",
+      "Bash(curl -sI -m 15 http://www.samarthjindal.com)"
     ]
   }
 }
