@@ -114,8 +114,7 @@ export const TIMELINE: TimelineItem[] = [
     org: "Sprinklr",
     kind: "work",
     points: [
-      "Engineer the backend systems behind Sprinklr Insights, ingesting and processing consumer signals from 30+ channels and hundreds of thousands of media sources into something query-able and reliable.",
-      "Design distributed, data-intensive pipelines for social listening, voice-of-customer, and competitive intelligence, keeping them fast and predictable under heavy, bursty load.",
+      "Build the backend systems for Sprinklr Insights, a customer intelligence tool, where we ingest and process consumer signals from 30+ channels and hundreds of thousands of media sources into something query-able and reliable.",
       "Own architecture and reliability decisions for services that large global enterprises depend on, where an outage is someone else's bad morning.",
       "Joined as an intern and grew through several engineering roles to Senior Software Development Engineer, taking on progressively larger systems along the way.",
     ],
@@ -126,7 +125,7 @@ export const TIMELINE: TimelineItem[] = [
     org: "DTU (formerly DCE)",
     kind: "education",
     points: [
-      "Earned a B.Tech in Computer Engineering with a 9.5/10 GPA, finishing the degree in 3.5 years rather than four.",
+      "Earned a B.Tech in Computer Engineering with a 9.5/10 GPA, speed-ran the degree in 3.5 years rather than four.",
       "Concentrated on systems, backend, and distributed computing, with internships and industry research running alongside coursework.",
     ],
   },
