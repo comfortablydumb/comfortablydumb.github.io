@@ -109,24 +109,13 @@ export type TimelineItem = {
 
 export const TIMELINE: TimelineItem[] = [
   {
-    period: "2023 – Present",
+    period: "2024 – Present",
     title: "Senior Software Development Engineer",
     org: "Sprinklr",
     kind: "work",
     points: [
-      "Backend owner for large-scale Customer Feedback Management platforms, taking CFM from zero to one through a Forrester demo and GA launch.",
-      "Architected a multi-tenant reporting engine serving 500K+ daily requests and a vendor cost attribution system managing $60M in annual spend.",
-      "Lead L1 on-call for a $180M+ ARR product, sustaining 99.99% availability and cutting downtime incidents by 92%.",
-    ],
-  },
-  {
-    period: "2023",
-    title: "Research Assistant (Part-time)",
-    org: "University of Cambridge",
-    kind: "work",
-    points: [
-      "Designed a data-driven mentor and mentee matching framework from research on entrepreneurship and MSME growth.",
-      "Analyzed field data from 2,500+ MSMEs and built a proof-of-concept matching platform.",
+      "Build and scale backend platforms for customer feedback management, social listening and research insight, and customer churn tooling.",
+      "Grew through three roles to Senior Software Development Engineer, owning the reliability of systems that run at scale.",
     ],
   },
   {
@@ -135,14 +124,13 @@ export const TIMELINE: TimelineItem[] = [
     org: "Delhi Technological University (DTU)",
     kind: "education",
     points: [
-      "Graduated in the top 1% with a CGPA of 9.50/10, focusing on systems, networks, and databases.",
-      "Founder and licensee of TEDxDTU, leading an 80-member team to run India's largest university-level TEDx event.",
+      "Studied computer engineering with a focus on systems and software.",
     ],
   },
 ];
 
 export const CAREER_GOALS =
-  "Over the next few years I want to deepen my impact on platform reliability and grow toward technical leadership. I care about where engineering meets business, but after being admitted to ISB's MBA on a full scholarship I chose to stay on the engineering path.";
+  "Over the next few years I want to deepen my impact on platform reliability and grow toward technical leadership, working where engineering meets real business outcomes.";
 
 export const TECHNICAL_INTERESTS = [
   "Streaming systems and event-driven architecture",
