@@ -2,7 +2,7 @@
 
 title: "The Code Isn't Messy Because Nobody Cared"
 description: "The codebase isn't the product. It's twenty years of customer requests, outages, and business decisions layered on top of each other."
-pubDate: 2026-04-02
+pubDate: 2026-03-02
 category: "Engineering"
 tags: ["Engineering"]
 draft: false
