@@ -70,6 +70,16 @@ const recent = (await getPosts()).slice(0, 3);
     padding: 0.5rem 1.1rem;
     line-height: 1.4;
   }
+  /* Neutral ink primary instead of loud blue, to match the minimal theme. */
+  .nf-actions .btn-primary {
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--bg);
+  }
+  .nf-actions .btn-primary:hover {
+    opacity: 0.85;
+    color: var(--bg);
+  }
   .suggest {
     margin-top: 2.5rem;
   }
