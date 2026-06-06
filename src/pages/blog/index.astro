@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeader from "../../components/PageHeader.astro";
+import Search from "../../components/Search.astro";
 import { getPosts, getTags, slugifyTag } from "../../utils/posts";
 
 const posts = await getPosts();
@@ -26,6 +27,8 @@ const rows = posts.map((p) => ({
     title="Notes"
     description="Mostly software: incidents, system design, performance work, and the occasional note on careers and decisions."
   />
+
+  <Search />
 
   {
     tags.length > 0 && (

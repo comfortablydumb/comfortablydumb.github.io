@@ -13,9 +13,9 @@ export const SITE = {
   url: "https://www.samarthjindal.com",
   author: "Samarth Jindal",
   locale: "en_US",
-  // Default social share image (relative to /public). Replace with a 1200x630 PNG
-  // for best compatibility with Twitter/LinkedIn (they don't render SVG previews).
-  ogImage: "/og-default.svg",
+  // Default social share image. Generated as a 1200x630 PNG at build time by
+  // src/pages/og/[...route].ts (astro-og-canvas). Per-post cards use /og/<id>.png.
+  ogImage: "/og/default.png",
 } as const;
 
 export const NAV = [
@@ -30,6 +30,24 @@ export const SOCIALS = {
   linkedin: "https://www.linkedin.com/in/jindalsamarth",
   // Optional, leave empty string to hide.
   twitter: "",
+} as const;
+
+/**
+ * Giscus comments (https://giscus.app). Comments are stored as GitHub
+ * Discussions on the repo below. To enable:
+ *   1. Make the repo public and enable the Discussions feature.
+ *   2. Install the giscus app: https://github.com/apps/giscus
+ *   3. Visit https://giscus.app, enter the repo, and copy the generated
+ *      `data-repo-id` and `data-category-id` into repoId / categoryId.
+ * Comments stay hidden until both IDs are filled in.
+ */
+export const GISCUS = {
+  repo: "comfortablydumb/comfortablydumb.github.io",
+  repoId: "",
+  category: "Comments",
+  categoryId: "",
+  mapping: "pathname",
+  reactionsEnabled: "1",
 } as const;
 
 export const CURRENT_ROLE = {

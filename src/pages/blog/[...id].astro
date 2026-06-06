@@ -2,6 +2,7 @@
 import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
+import Giscus from "../../components/Giscus.astro";
 import { getPosts, readingTime, slugifyTag } from "../../utils/posts";
 
 export async function getStaticPaths() {
@@ -31,12 +32,13 @@ const related = all
 <BaseLayout
   title={d.title}
   description={d.description}
+  image={`/og/${post.id}.png`}
   type="article"
   publishDate={d.pubDate}
   modifiedDate={d.updatedDate}
   tags={d.tags}
 >
-  <article>
+  <article data-pagefind-body>
     <header class="post-head">
       <h1>{d.title}</h1>
       <p class="post-meta text-muted">
@@ -71,6 +73,8 @@ const related = all
       )
     }
   </article>
+
+  <Giscus />
 </BaseLayout>
 
 <style>
