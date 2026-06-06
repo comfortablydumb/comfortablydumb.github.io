@@ -4,7 +4,8 @@
 // Cloudflare:  set PUBLIC_CF_BEACON_TOKEN (Web Analytics token)
 // If neither is set, nothing is injected.
 const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
-const cfToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+const cfToken =
+  import.meta.env.PUBLIC_CF_BEACON_TOKEN ?? "5fb0dff33ae447ee8a00ddab936b4c0b";
 ---
 
 {
