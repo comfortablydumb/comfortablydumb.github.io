@@ -67,15 +67,20 @@
   :global(#search .pagefind-ui__button) {
     display: none;
   }
-  /* Strip the boxed "Clear" button down to a quiet text affordance. */
+  /* Replace the boxed "Clear" text button with a quiet close icon. */
   :global(#search .pagefind-ui__search-clear) {
     background: none;
     border: none;
-    padding: 0 0.25rem;
-    width: auto;
-    font-size: 0.8rem;
+    padding: 0;
+    width: 2.25rem;
+    font-size: 0;
     color: var(--text-faint);
     text-indent: 0;
+  }
+  :global(#search .pagefind-ui__search-clear::after) {
+    content: "\00d7";
+    font-size: 1.35rem;
+    line-height: 1;
   }
   :global(#search .pagefind-ui__search-clear:hover) {
     color: var(--link);
