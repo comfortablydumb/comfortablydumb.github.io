@@ -2,7 +2,6 @@
 import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
-import Giscus from "../../components/Giscus.astro";
 import { getPosts, readingTime, slugifyTag } from "../../utils/posts";
 
 export async function getStaticPaths() {
@@ -60,7 +59,7 @@ const related = all
 
     {
       related.length > 0 && (
-        <section class="related">
+        <section class="related" data-pagefind-ignore>
           <h2>Related</h2>
           <ul>
             {related.map((p) => (
@@ -73,8 +72,6 @@ const related = all
       )
     }
   </article>
-
-  <Giscus />
 </BaseLayout>
 
 <style>

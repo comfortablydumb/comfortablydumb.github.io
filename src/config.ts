@@ -32,24 +32,6 @@ export const SOCIALS = {
   twitter: "",
 } as const;
 
-/**
- * Giscus comments (https://giscus.app). Comments are stored as GitHub
- * Discussions on the repo below. To enable:
- *   1. Make the repo public and enable the Discussions feature.
- *   2. Install the giscus app: https://github.com/apps/giscus
- *   3. Visit https://giscus.app, enter the repo, and copy the generated
- *      `data-repo-id` and `data-category-id` into repoId / categoryId.
- * Comments stay hidden until both IDs are filled in.
- */
-export const GISCUS = {
-  repo: "comfortablydumb/comfortablydumb.github.io",
-  repoId: "",
-  category: "Comments",
-  categoryId: "",
-  mapping: "pathname",
-  reactionsEnabled: "1",
-} as const;
-
 export const CURRENT_ROLE = {
   title: "Senior Software Development Engineer",
   company: "Sprinklr",
