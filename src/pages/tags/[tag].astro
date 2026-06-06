@@ -28,16 +28,16 @@ const { label, posts } = Astro.props;
 
 <BaseLayout
   title={`#${label}`}
-  description={`Articles tagged ${label} by Samarth Jindal.`}
+  description={`Notes tagged ${label} by Samarth Jindal.`}
 >
   <PageHeader
     eyebrow="Tag"
     title={`#${label}`}
-    description={`${posts.length} article${posts.length === 1 ? "" : "s"} on ${label}.`}
+    description={`${posts.length} note${posts.length === 1 ? "" : "s"} on ${label}.`}
   />
 
   <div class="container section">
-    <a class="back-link" href="/blog">← All articles</a>
+    <a class="back-link" href="/blog">← All notes</a>
     <div class="post-list" style="margin-top:1rem">
       {posts.map((post) => <PostCard post={post} />)}
     </div>

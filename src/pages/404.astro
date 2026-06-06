@@ -17,7 +17,7 @@ const recent = (await getPosts()).slice(0, 3);
 
     <div class="nf-actions">
       <a class="btn btn-primary" href="/">Back home</a>
-      <a class="btn" href="/blog">Read the blog</a>
+      <a class="btn" href="/blog">Browse notes</a>
     </div>
 
     {
@@ -62,8 +62,13 @@ const recent = (await getPosts()).slice(0, 3);
     display: flex;
     gap: 0.6rem;
     justify-content: center;
+    align-items: center;
     margin-top: 1.5rem;
     flex-wrap: wrap;
+  }
+  .nf-actions .btn {
+    padding: 0.5rem 1.1rem;
+    line-height: 1.4;
   }
   .suggest {
     margin-top: 2.5rem;

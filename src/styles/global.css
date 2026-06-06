@@ -220,6 +220,11 @@ li {
   opacity: 0.9;
   color: #fff;
 }
+/* The dark-theme link blue is light; darken the filled button so white text stays legible. */
+[data-theme="dark"] .btn-primary {
+  background: #3b5bdb;
+  border-color: #3b5bdb;
+}
 
 .tag {
   display: inline-block;
