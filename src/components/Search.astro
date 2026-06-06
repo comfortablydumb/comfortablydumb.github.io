@@ -67,6 +67,26 @@
   :global(#search .pagefind-ui__button) {
     display: none;
   }
+  /* Strip the boxed "Clear" button down to a quiet text affordance. */
+  :global(#search .pagefind-ui__search-clear) {
+    background: none;
+    border: none;
+    padding: 0 0.25rem;
+    width: auto;
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    text-indent: 0;
+  }
+  :global(#search .pagefind-ui__search-clear:hover) {
+    color: var(--link);
+  }
+  /* The result count: small and muted, not a heavy heading. */
+  :global(#search .pagefind-ui__message) {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-faint);
+    padding: 0.5rem 0 0;
+  }
   :global(#search .pagefind-ui__result) {
     padding: 0.55rem 0;
     border: none;
