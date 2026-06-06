@@ -1,6 +1,6 @@
 ---
-title: "Bawana land"
-description: "Good old days"
+title: "College is terrible. Until it isn't"
+description: "An exploration of DTU's greatest paradox: spending years complaining about a place you'll spend decades missing."
 pubDate: 2022-10-22
 category: "College"
 tags: ["College"]
