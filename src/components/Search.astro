@@ -44,7 +44,14 @@
     color: var(--text-faint);
     font-size: 0.9rem;
   }
-  .search :global(.pagefind-ui) {
+  /*
+    Target Pagefind internals through the stable #search id in a single
+    :global() wrapper. Scoping each selector with ".search :global(...)"
+    is fragile: Astro can drop the scope prefix off the first item in a
+    comma list, leaving a bare low-specificity selector that Pagefind's
+    own CSS overrides. #search (id) keeps specificity above Pagefind's.
+  */
+  :global(#search .pagefind-ui) {
     --pagefind-ui-primary: var(--link);
     --pagefind-ui-text: var(--text);
     --pagefind-ui-background: var(--bg);
@@ -55,25 +62,25 @@
     --pagefind-ui-font: inherit;
   }
   /* Minimal results: title-only, no excerpts or match context. */
-  .search :global(.pagefind-ui__result-excerpt),
-  .search :global(.pagefind-ui__result-tags),
-  .search :global(.pagefind-ui__button) {
+  :global(#search .pagefind-ui__result-excerpt),
+  :global(#search .pagefind-ui__result-tags),
+  :global(#search .pagefind-ui__button) {
     display: none;
   }
-  .search :global(.pagefind-ui__result) {
+  :global(#search .pagefind-ui__result) {
     padding: 0.55rem 0;
     border: none;
     border-top: 1px solid var(--border);
   }
-  .search :global(.pagefind-ui__result-title) {
+  :global(#search .pagefind-ui__result-title) {
     font-size: 1rem;
     font-weight: 500;
   }
-  .search :global(.pagefind-ui__result-link) {
+  :global(#search .pagefind-ui__result-link) {
     color: var(--text);
     text-decoration: none;
   }
-  .search :global(.pagefind-ui__result-link:hover) {
+  :global(#search .pagefind-ui__result-link:hover) {
     color: var(--link);
     text-decoration: underline;
   }
