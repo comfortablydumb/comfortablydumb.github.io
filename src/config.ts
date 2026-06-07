@@ -26,7 +26,7 @@ export const NAV = [
 ] as const;
 
 export const SOCIALS = {
-  email: "samarthjindal.dce@gmail.com",
+  email: "contact@samarthjindal.com",
   linkedin: "https://www.linkedin.com/in/jindalsamarth",
   // Optional, leave empty string to hide.
   twitter: "",
