@@ -1,5 +1,5 @@
 ---
-import { SITE } from "../config";
+import { SITE, SOCIALS } from "../config";
 
 interface Props {
   title?: string;
@@ -27,12 +27,19 @@ const pageTitle = title ? `${title} · ${SITE.title}` : SITE.title;
 const canonical = new URL(Astro.url.pathname, SITE.url).href.replace(/\/$/, "") || SITE.url;
 const ogImageUrl = new URL(image, SITE.url).href;
 
-// JSON-LD structured data
-const personSchema = {
+// JSON-LD structured data. Person + WebSite describe the site as a whole,
+// so they are emitted once on the homepage rather than on every page.
+const isHome = Astro.url.pathname === "/";
+
+const sameAs = [SOCIALS.linkedin, SOCIALS.twitter].filter(Boolean);
+
+const personSchema = isHome && {
   "@context": "https://schema.org",
   "@type": "Person",
   name: SITE.author,
   url: SITE.url,
+  image: new URL("/icon-512.png", SITE.url).href,
+  email: `mailto:${SOCIALS.email}`,
   jobTitle: "Software Engineer",
   knowsAbout: [
     "Distributed Systems",
@@ -42,6 +49,17 @@ const personSchema = {
     "Cloud Infrastructure",
     "System Design",
   ],
+  ...(sameAs.length > 0 && { sameAs }),
+};
+
+const websiteSchema = isHome && {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.title,
+  url: SITE.url,
+  description: SITE.description,
+  inLanguage: "en-US",
+  author: { "@type": "Person", name: SITE.author, url: SITE.url },
 };
 
 const articleSchema = type === "article" && {
@@ -87,5 +105,6 @@ const articleSchema = type === "article" && {
 <link rel="alternate" type="application/rss+xml" title={`${SITE.title}: Notes`} href="/rss.xml" />
 
 <!-- Structured data -->
-<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+{personSchema && <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />}
+{websiteSchema && <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />}
 {articleSchema && <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />}
