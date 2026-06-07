@@ -7,8 +7,6 @@ tags: ["Engineering"]
 draft: false
 ---
 
-
-
 Every engineer eventually falls into the same trap.
 
 You start with a simple problem.
