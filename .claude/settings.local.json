@@ -62,7 +62,12 @@
       "Bash(grep -E \"rehype-slug|rehype-autolink|astro$\")",
       "Bash(node -e \"console.log\\(''''slug'''', require\\(''''rehype-slug/package.json''''\\).version\\); console.log\\(''''autolink'''', require\\(''''rehype-autolink-headings/package.json''''\\).version\\)\")",
       "Bash(grep -oE '<h2 id=\"\"\"\"[^\"\"\"\"]+\"\"\"\">.{0,140}' dist/blog/the-most-important-button-we-didnt-have/index.html)",
-      "Bash(POST=dist/blog/the-most-important-button-we-didnt-have/index.html)"
+      "Bash(POST=dist/blog/the-most-important-button-we-didnt-have/index.html)",
+      "Bash(URL=\"https://www.samarthjindal.com/blog/the-most-important-button-we-didnt-have/\" echo \"== page headers ==\")",
+      "Bash(curl -sI \"$URL\")",
+      "Bash(curl -sL \"$URL\")",
+      "Bash(IMG=\"https://www.samarthjindal.com/og/the-most-important-button-we-didnt-have.png\")",
+      "Bash(curl -sI \"$IMG\")"
     ]
   }
 }
