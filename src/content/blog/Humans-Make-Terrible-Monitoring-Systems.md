@@ -1,7 +1,7 @@
 ---
 title: "Humans Make Terrible Monitoring Systems"
 description: "Every recurring operational issue is a monitoring problem waiting to be automated."
-pubDate: 2026-04-19
+pubDate: 2026-03-19
 category: "Engineering"
 tags: ["Engineering"]
 draft: false
