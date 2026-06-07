@@ -56,9 +56,26 @@ const related = all
       </p>
       <div class="foot-row">
         <a href="/blog" class="back">← All notes</a>
-        <button type="button" class="copy-link" data-copy-link data-pagefind-ignore aria-live="polite">
-          Copy link
-        </button>
+        <div class="share" data-pagefind-ignore>
+          <span class="share-status" data-share-status role="status" aria-live="polite"></span>
+          <button type="button" class="icon-btn" data-copy-link aria-label="Copy link" title="Copy link">
+            <svg class="i-copy" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <svg class="i-check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 6 9 17l-5-5"></path>
+            </svg>
+          </button>
+          <button type="button" class="icon-btn" data-share-link hidden aria-label="Share" title="Share">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </footer>
 
@@ -120,20 +137,39 @@ const related = all
     justify-content: space-between;
     gap: 1rem;
   }
-  .copy-link {
-    font: inherit;
-    font-size: 0.9rem;
-    color: var(--text-muted);
+  .share {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .share-status {
+    font-size: 0.8rem;
+    color: var(--text-faint);
+  }
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
     padding: 0;
+    color: var(--text-muted);
     cursor: pointer;
   }
-  .copy-link:hover {
+  .icon-btn:hover {
     color: var(--link);
   }
-  .copy-link.copied {
+  .icon-btn .i-check {
+    display: none;
+  }
+  .icon-btn.copied {
     color: var(--link);
+  }
+  .icon-btn.copied .i-copy {
+    display: none;
+  }
+  .icon-btn.copied .i-check {
+    display: block;
   }
   .related {
     margin-top: 2rem;
@@ -156,30 +192,54 @@ const related = all
     return canonical?.href || window.location.href;
   }
 
-  function bindCopy() {
-    const btn = document.querySelector<HTMLButtonElement>("[data-copy-link]");
-    if (!btn || btn.dataset.bound) return;
-    btn.dataset.bound = "true";
-    const original = btn.textContent;
-    btn.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(permalink());
-        btn.textContent = "Copied";
-        btn.classList.add("copied");
-        setTimeout(() => {
-          btn.textContent = original;
-          btn.classList.remove("copied");
-        }, 1500);
-      } catch (e) {
-        btn.textContent = "Press Ctrl+C";
-        setTimeout(() => {
-          btn.textContent = original;
-        }, 1500);
-      }
-    });
+  function status(): HTMLElement | null {
+    return document.querySelector<HTMLElement>("[data-share-status]");
   }
 
-  // Re-bind after each View Transition swap; the button is a fresh node.
-  document.addEventListener("astro:page-load", bindCopy);
-  bindCopy();
+  function flash(msg: string) {
+    const el = status();
+    if (!el) return;
+    el.textContent = msg;
+    setTimeout(() => {
+      el.textContent = "";
+    }, 1500);
+  }
+
+  async function copyLink(btn: HTMLButtonElement) {
+    try {
+      await navigator.clipboard.writeText(permalink());
+      btn.classList.add("copied");
+      flash("Copied");
+      setTimeout(() => btn.classList.remove("copied"), 1500);
+    } catch (e) {
+      flash("Press Ctrl+C");
+    }
+  }
+
+  function bindShare() {
+    const copyBtn = document.querySelector<HTMLButtonElement>("[data-copy-link]");
+    if (copyBtn && !copyBtn.dataset.bound) {
+      copyBtn.dataset.bound = "true";
+      copyBtn.addEventListener("click", () => copyLink(copyBtn));
+    }
+
+    const shareBtn = document.querySelector<HTMLButtonElement>("[data-share-link]");
+    if (shareBtn && !shareBtn.dataset.bound) {
+      shareBtn.dataset.bound = "true";
+      if (typeof navigator.share === "function") {
+        shareBtn.hidden = false;
+        shareBtn.addEventListener("click", async () => {
+          try {
+            await navigator.share({ title: document.title, url: permalink() });
+          } catch (e) {
+            /* user dismissed the share sheet; ignore */
+          }
+        });
+      }
+    }
+  }
+
+  // Re-bind after each View Transition swap; the buttons are fresh nodes.
+  document.addEventListener("astro:page-load", bindShare);
+  bindShare();
 </script>
