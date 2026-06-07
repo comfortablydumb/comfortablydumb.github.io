@@ -41,8 +41,7 @@
 </style>
 
 <script>
-  const btn = document.getElementById("theme-toggle");
-  btn?.addEventListener("click", () => {
+  function toggleTheme() {
     const root = document.documentElement;
     const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", next);
@@ -54,5 +53,17 @@
     document
       .querySelector('meta[name="theme-color"]')
       ?.setAttribute("content", next === "dark" ? "#1b1c1e" : "#ffffff");
-  });
+  }
+
+  // Re-bind after every View Transition swap. The button is a fresh element
+  // after each navigation, so attach the listener on each page load.
+  function bind() {
+    const btn = document.getElementById("theme-toggle");
+    if (btn && !btn.dataset.bound) {
+      btn.dataset.bound = "true";
+      btn.addEventListener("click", toggleTheme);
+    }
+  }
+  document.addEventListener("astro:page-load", bind);
+  bind();
 </script>

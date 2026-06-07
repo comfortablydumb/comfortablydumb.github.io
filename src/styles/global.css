@@ -290,3 +290,31 @@ a.tag:hover {
   padding: 0.45rem 0.6rem;
   text-align: left;
 }
+
+/* Heading anchors: invisible until the heading is hovered/focused. */
+.prose :is(h2, h3, h4) {
+  position: relative;
+}
+.prose .heading-anchor {
+  position: absolute;
+  left: -1.1em;
+  width: 1.1em;
+  padding-right: 0.3em;
+  color: var(--text-faint);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.prose :is(h2, h3, h4):hover .heading-anchor,
+.prose .heading-anchor:focus {
+  opacity: 1;
+}
+.prose .heading-anchor:hover {
+  color: var(--link);
+}
+@media (hover: none) {
+  /* On touch devices there is no hover, so keep anchors discoverable. */
+  .prose .heading-anchor {
+    opacity: 0.4;
+  }
+}

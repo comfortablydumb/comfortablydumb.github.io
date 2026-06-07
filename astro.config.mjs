@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 // Production domain. Used for canonical URLs, sitemap, RSS, and Open Graph tags.
 const SITE_URL = "https://www.samarthjindal.com";
@@ -22,6 +24,18 @@ export default defineConfig({
       },
       wrap: true,
     },
+    rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          // Append a quiet "#" anchor that only shows on hover (see prose CSS).
+          behavior: "append",
+          properties: { className: ["heading-anchor"], ariaHidden: true, tabIndex: -1 },
+          content: { type: "text", value: "#" },
+        },
+      ],
+    ],
   },
   build: {
     inlineStylesheets: "auto",
