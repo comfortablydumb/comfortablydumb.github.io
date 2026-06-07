@@ -18,6 +18,10 @@ const d = post.data;
 const mins = d.readingTime ?? readingTime(post.body);
 
 const all = await getPosts();
+const idx = all.findIndex((p) => p.id === post.id);
+const prev = idx < all.length - 1 ? all[idx + 1] : null; // older
+const next = idx > 0 ? all[idx - 1] : null; // newer
+
 const related = all
   .filter((p) => p.id !== post.id)
   .filter(
@@ -54,20 +58,33 @@ const related = all
       <p class="tags">
         {d.tags.map((t) => <a href={`/tags/${slugifyTag(t)}`}>#{t}</a>)}
       </p>
+
+      {
+        (prev || next) && (
+          <nav class="post-nav" aria-label="More notes">
+            {prev ? (
+              <a class="nav-prev" href={`/blog/${prev.id}`}>
+                <span class="nav-label">← Previous</span>
+                <span class="nav-title">{prev.data.title}</span>
+              </a>
+            ) : (
+              <span />
+            )}
+            {next && (
+              <a class="nav-next" href={`/blog/${next.id}`}>
+                <span class="nav-label">Next →</span>
+                <span class="nav-title">{next.data.title}</span>
+              </a>
+            )}
+          </nav>
+        )
+      }
+
       <div class="foot-row">
         <a href="/blog" class="back">← All notes</a>
         <div class="share" data-pagefind-ignore>
           <span class="share-status" data-share-status role="status" aria-live="polite"></span>
-          <button type="button" class="icon-btn" data-copy-link aria-label="Copy link" title="Copy link">
-            <svg class="i-copy" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-            </svg>
-            <svg class="i-check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M20 6 9 17l-5-5"></path>
-            </svg>
-          </button>
-          <button type="button" class="icon-btn" data-share-link hidden aria-label="Share" title="Share">
+          <button type="button" class="icon-btn" data-share-link aria-label="Share" title="Share">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="18" cy="5" r="3"></circle>
               <circle cx="6" cy="12" r="3"></circle>
@@ -137,6 +154,35 @@ const related = all
     justify-content: space-between;
     gap: 1rem;
   }
+  .post-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin: 0 0 1.5rem;
+  }
+  .post-nav a {
+    display: block;
+    max-width: 47%;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .nav-next {
+    margin-left: auto;
+    text-align: right;
+  }
+  .nav-label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+  .nav-title {
+    display: block;
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+  .post-nav a:hover .nav-title {
+    color: var(--link);
+  }
   .share {
     display: flex;
     align-items: center;
@@ -159,18 +205,6 @@ const related = all
   .icon-btn:hover {
     color: var(--link);
   }
-  .icon-btn .i-check {
-    display: none;
-  }
-  .icon-btn.copied {
-    color: var(--link);
-  }
-  .icon-btn.copied .i-copy {
-    display: none;
-  }
-  .icon-btn.copied .i-check {
-    display: block;
-  }
   .related {
     margin-top: 2rem;
   }
@@ -192,12 +226,8 @@ const related = all
     return canonical?.href || window.location.href;
   }
 
-  function status(): HTMLElement | null {
-    return document.querySelector<HTMLElement>("[data-share-status]");
-  }
-
   function flash(msg: string) {
-    const el = status();
+    const el = document.querySelector<HTMLElement>("[data-share-status]");
     if (!el) return;
     el.textContent = msg;
     setTimeout(() => {
@@ -205,41 +235,34 @@ const related = all
     }, 1500);
   }
 
-  async function copyLink(btn: HTMLButtonElement) {
+  // Native share sheet where supported (mostly mobile), copy the link
+  // everywhere else so the one button always does something useful.
+  async function shareOrCopy() {
+    const url = permalink();
+    if (typeof navigator.share === "function") {
+      try {
+        await navigator.share({ title: document.title, url });
+      } catch (e) {
+        /* user dismissed the share sheet; ignore */
+      }
+      return;
+    }
     try {
-      await navigator.clipboard.writeText(permalink());
-      btn.classList.add("copied");
-      flash("Copied");
-      setTimeout(() => btn.classList.remove("copied"), 1500);
+      await navigator.clipboard.writeText(url);
+      flash("Link copied");
     } catch (e) {
       flash("Press Ctrl+C");
     }
   }
 
   function bindShare() {
-    const copyBtn = document.querySelector<HTMLButtonElement>("[data-copy-link]");
-    if (copyBtn && !copyBtn.dataset.bound) {
-      copyBtn.dataset.bound = "true";
-      copyBtn.addEventListener("click", () => copyLink(copyBtn));
-    }
-
-    const shareBtn = document.querySelector<HTMLButtonElement>("[data-share-link]");
-    if (shareBtn && !shareBtn.dataset.bound) {
-      shareBtn.dataset.bound = "true";
-      if (typeof navigator.share === "function") {
-        shareBtn.hidden = false;
-        shareBtn.addEventListener("click", async () => {
-          try {
-            await navigator.share({ title: document.title, url: permalink() });
-          } catch (e) {
-            /* user dismissed the share sheet; ignore */
-          }
-        });
-      }
-    }
+    const btn = document.querySelector<HTMLButtonElement>("[data-share-link]");
+    if (!btn || btn.dataset.bound) return;
+    btn.dataset.bound = "true";
+    btn.addEventListener("click", shareOrCopy);
   }
 
-  // Re-bind after each View Transition swap; the buttons are fresh nodes.
+  // Re-bind after each View Transition swap; the button is a fresh node.
   document.addEventListener("astro:page-load", bindShare);
   bindShare();
 </script>
