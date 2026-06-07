@@ -18,10 +18,6 @@ const d = post.data;
 const mins = d.readingTime ?? readingTime(post.body);
 
 const all = await getPosts();
-const idx = all.findIndex((p) => p.id === post.id);
-const prev = idx < all.length - 1 ? all[idx + 1] : null; // older
-const next = idx > 0 ? all[idx - 1] : null; // newer
-
 const related = all
   .filter((p) => p.id !== post.id)
   .filter(
@@ -44,10 +40,23 @@ const related = all
   <article data-pagefind-body>
     <header class="post-head">
       <h1>{d.title}</h1>
-      <p class="post-meta text-muted">
-        <FormattedDate date={d.pubDate} /> · {mins} min read · {d.category}
-        {d.updatedDate && <> · updated <FormattedDate date={d.updatedDate} /></>}
-      </p>
+      <div class="meta-row">
+        <p class="post-meta text-muted">
+          <FormattedDate date={d.pubDate} /> · {mins} min read · {d.category}
+          {d.updatedDate && <> · updated <FormattedDate date={d.updatedDate} /></>}
+        </p>
+        <div class="share" data-pagefind-ignore>
+          <span class="share-status" data-share-status role="status" aria-live="polite"></span>
+          <button type="button" class="icon-btn" data-share-link aria-label="Share" title="Share">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
     </header>
 
     <div class="prose">
@@ -58,42 +67,7 @@ const related = all
       <p class="tags">
         {d.tags.map((t) => <a href={`/tags/${slugifyTag(t)}`}>#{t}</a>)}
       </p>
-
-      {
-        (prev || next) && (
-          <nav class="post-nav" aria-label="More notes">
-            {prev ? (
-              <a class="nav-prev" href={`/blog/${prev.id}`}>
-                <span class="nav-label">← Previous</span>
-                <span class="nav-title">{prev.data.title}</span>
-              </a>
-            ) : (
-              <span />
-            )}
-            {next && (
-              <a class="nav-next" href={`/blog/${next.id}`}>
-                <span class="nav-label">Next →</span>
-                <span class="nav-title">{next.data.title}</span>
-              </a>
-            )}
-          </nav>
-        )
-      }
-
-      <div class="foot-row">
-        <a href="/blog" class="back">← All notes</a>
-        <div class="share" data-pagefind-ignore>
-          <span class="share-status" data-share-status role="status" aria-live="polite"></span>
-          <button type="button" class="icon-btn" data-share-link aria-label="Share" title="Share">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="18" cy="5" r="3"></circle>
-              <circle cx="6" cy="12" r="3"></circle>
-              <circle cx="18" cy="19" r="3"></circle>
-              <path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
+      <a href="/blog" class="back">← All notes</a>
     </footer>
 
     {
@@ -117,9 +91,16 @@ const related = all
   .post-head {
     margin-bottom: 1.5rem;
   }
+  .meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.4rem;
+  }
   .post-meta {
     font-size: 0.88rem;
-    margin-top: 0.4rem;
+    margin: 0;
   }
   .post-foot {
     margin-top: 2.5rem;
@@ -146,41 +127,6 @@ const related = all
     color: var(--text-muted);
   }
   .back:hover {
-    color: var(--link);
-  }
-  .foot-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-  .post-nav {
-    display: flex;
-    justify-content: space-between;
-    gap: 1.5rem;
-    margin: 0 0 1.5rem;
-  }
-  .post-nav a {
-    display: block;
-    max-width: 47%;
-    text-decoration: none;
-    color: var(--text);
-  }
-  .nav-next {
-    margin-left: auto;
-    text-align: right;
-  }
-  .nav-label {
-    display: block;
-    font-size: 0.78rem;
-    color: var(--text-faint);
-  }
-  .nav-title {
-    display: block;
-    font-size: 0.92rem;
-    line-height: 1.35;
-  }
-  .post-nav a:hover .nav-title {
     color: var(--link);
   }
   .share {
