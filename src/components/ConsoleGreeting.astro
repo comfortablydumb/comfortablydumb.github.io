@@ -1,0 +1,46 @@
+---
+// Easter egg for the curious who open DevTools. Prints a little panda,
+// a hello, and contact links. Purely cosmetic; no data leaves the page.
+import { SITE, SOCIALS } from "../config";
+
+const data = {
+  author: SITE.author,
+  url: SITE.url,
+  email: SOCIALS.email,
+  linkedin: SOCIALS.linkedin,
+};
+---
+
+<script is:inline define:vars={{ data }}>
+  (function () {
+    try {
+      var panda = [
+        "    ___      ___",
+        "   (o o)    (o o)",
+        "  (  V  )--(  V  )",
+        "   --m-m----m-m--",
+      ].join("\n");
+
+      var heading = "font:600 13px/1.5 ui-monospace,monospace;color:#7aa2f7";
+      var muted = "font:12px/1.6 ui-monospace,monospace;color:#9098a3";
+      var link = "font:12px/1.6 ui-monospace,monospace;color:#7aa2f7";
+
+      console.log("%c" + panda, muted);
+      console.log("%cHey, you opened the console. I like you already.", heading);
+      console.log(
+        "%cThis site is hand-built with Astro. Source-curious? Say hi.",
+        muted,
+      );
+      console.log("%c" + data.email, link);
+      console.log("%c" + data.linkedin, link);
+
+      // A tiny command for the truly curious.
+      window.whoami = function () {
+        console.log("%c" + data.author + " — " + data.url, heading);
+        return data;
+      };
+    } catch (e) {
+      /* console may be unavailable; ignore */
+    }
+  })();
+</script>
