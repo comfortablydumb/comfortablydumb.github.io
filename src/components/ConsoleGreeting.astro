@@ -1,13 +1,16 @@
 ---
-// Easter egg for the curious who open DevTools. Prints a little panda,
-// a hello, and contact links. Purely cosmetic; no data leaves the page.
-import { SITE, SOCIALS } from "../config";
+// Easter egg for the curious who open DevTools. Prints a styled banner,
+// a panda, and a few playful interactive commands on `window.sj`.
+// Purely cosmetic; nothing leaves the page.
+import { SITE, SOCIALS, CURRENT_ROLE } from "../config";
 
 const data = {
   author: SITE.author,
   url: SITE.url,
   email: SOCIALS.email,
   linkedin: SOCIALS.linkedin,
+  role: CURRENT_ROLE.title,
+  company: CURRENT_ROLE.company,
 };
 ---
 
@@ -15,30 +18,95 @@ const data = {
   (function () {
     try {
       var panda = [
-        "    ___      ___",
-        "   (o o)    (o o)",
-        "  (  V  )--(  V  )",
-        "   --m-m----m-m--",
+        "         .--.     .--.",
+        "        ( oo )---( oo )",
+        "         \\  /     \\  /",
+        "        .-`'`-----`'`-.",
+        "       /   o       o   \\",
+        "      |    .-.   .-.    |",
+        "      |   ( ● ) ( ● )   |",
+        "       \\   `-`   `-`   /",
+        "        `-._  ▾  _.-`",
+        "            `-----`",
       ].join("\n");
 
-      var heading = "font:600 13px/1.5 ui-monospace,monospace;color:#7aa2f7";
-      var muted = "font:12px/1.6 ui-monospace,monospace;color:#9098a3";
-      var link = "font:12px/1.6 ui-monospace,monospace;color:#7aa2f7";
+      var ink = "color:#7aa2f7";
+      var mono = "font-family:ui-monospace,SFMono-Regular,Menlo,monospace";
 
-      console.log("%c" + panda, muted);
-      console.log("%cHey, you opened the console. I like you already.", heading);
-      console.log(
-        "%cThis site is hand-built with Astro. Source-curious? Say hi.",
-        muted,
-      );
-      console.log("%c" + data.email, link);
-      console.log("%c" + data.linkedin, link);
+      var title = mono + ";font-size:13px;font-weight:600;" + ink;
+      var muted = mono + ";font-size:12px;color:#9098a3";
+      var link = mono + ";font-size:12px;" + ink;
+      var ok = mono + ";font-size:12px;color:#3fb950";
 
-      // A tiny command for the truly curious.
-      window.whoami = function () {
-        console.log("%c" + data.author + " — " + data.url, heading);
-        return data;
+      console.log("%c" + panda, mono + ";font-size:11px;color:#9098a3");
+      console.log(" ");
+      console.log("%cHey — you opened the console. We're going to be friends.", title);
+      console.log(" ");
+      // A tiny fake boot sequence, because why not.
+      console.log("%c  [ ok ]  curiosity.service started", ok);
+      console.log("%c  [ ok ]  caffeine levels nominal", ok);
+      console.log("%c  [ ok ]  over-engineering subsystem online", ok);
+      console.log(" ");
+      console.log("%cTry one of these:", muted);
+      console.log("%c  sj.help()    %c— what can I do here?", link, muted);
+      console.log("%c  sj.whoami()  %c— who built this", link, muted);
+      console.log("%c  sj.hire()    %c— the pitch", link, muted);
+      console.log("%c  sj.coffee()  %c— ☕", link, muted);
+      console.log("%c  sj.uptime()  %c— time on this page", link, muted);
+
+      var start = Date.now();
+      function group(label, lines) {
+        console.log("%c" + label, title);
+        lines.forEach(function (l) {
+          console.log("%c  " + l, muted);
+        });
+      }
+
+      var sj = {
+        help: function () {
+          group("sj — available commands", [
+            "whoami()  · the human behind the site",
+            "hire()    · why you might want to talk",
+            "coffee()  · pour one",
+            "uptime()  · how long you've lingered here",
+            "links()   · email + linkedin",
+          ]);
+          return "👋";
+        },
+        whoami: function () {
+          console.log("%c" + data.author, title);
+          console.log("%c" + data.role + " @ " + data.company, muted);
+          console.log("%c" + data.url, link);
+          return data.author;
+        },
+        hire: function () {
+          group("the pitch", [
+            "I build reliable distributed systems at scale,",
+            "the kind where an outage is someone's bad morning.",
+            "If that's useful to you, let's talk:",
+            data.email,
+          ]);
+          return "🙂";
+        },
+        coffee: function () {
+          console.log("%c☕ poured. back to work.", ok);
+          return "☕";
+        },
+        uptime: function () {
+          var s = Math.round((Date.now() - start) / 1000);
+          console.log("%cYou've been here " + s + "s. Thanks for staying.", muted);
+          return s + "s";
+        },
+        links: function () {
+          console.log("%c" + data.email, link);
+          console.log("%c" + data.linkedin, link);
+          return [data.email, data.linkedin];
+        },
       };
+
+      window.sj = sj;
+      // Back-compat for anyone who tries the classic.
+      window.whoami = sj.whoami;
     } catch (e) {
       /* console may be unavailable; ignore */
     }
