@@ -17,6 +17,11 @@ const data = {
 <script is:inline define:vars={{ data }}>
   (function () {
     try {
+      // With View Transitions this inline script re-runs on every client
+      // navigation. Print the banner only once per tab session.
+      if (window.__sjGreeted) return;
+      window.__sjGreeted = true;
+
       var panda = [
         "         .--.     .--.",
         "        ( oo )---( oo )",

@@ -54,7 +54,12 @@ const related = all
       <p class="tags">
         {d.tags.map((t) => <a href={`/tags/${slugifyTag(t)}`}>#{t}</a>)}
       </p>
-      <a href="/blog" class="back">← All notes</a>
+      <div class="foot-row">
+        <a href="/blog" class="back">← All notes</a>
+        <button type="button" class="copy-link" data-copy-link data-pagefind-ignore aria-live="polite">
+          Copy link
+        </button>
+      </div>
     </footer>
 
     {
@@ -109,6 +114,27 @@ const related = all
   .back:hover {
     color: var(--link);
   }
+  .foot-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .copy-link {
+    font: inherit;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .copy-link:hover {
+    color: var(--link);
+  }
+  .copy-link.copied {
+    color: var(--link);
+  }
   .related {
     margin-top: 2rem;
   }
@@ -123,3 +149,37 @@ const related = all
     text-decoration: underline;
   }
 </style>
+
+<script>
+  function permalink(): string {
+    const canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    return canonical?.href || window.location.href;
+  }
+
+  function bindCopy() {
+    const btn = document.querySelector<HTMLButtonElement>("[data-copy-link]");
+    if (!btn || btn.dataset.bound) return;
+    btn.dataset.bound = "true";
+    const original = btn.textContent;
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(permalink());
+        btn.textContent = "Copied";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove("copied");
+        }, 1500);
+      } catch (e) {
+        btn.textContent = "Press Ctrl+C";
+        setTimeout(() => {
+          btn.textContent = original;
+        }, 1500);
+      }
+    });
+  }
+
+  // Re-bind after each View Transition swap; the button is a fresh node.
+  document.addEventListener("astro:page-load", bindCopy);
+  bindCopy();
+</script>
