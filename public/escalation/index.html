@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Escalation</title>
+
+    <style>
+      /* Tokens lifted verbatim from src/styles/global.css so this page reads
+         as part of the site in both themes. */
+      :root {
+        --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji";
+        --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas,
+          "Liberation Mono", monospace;
+
+        --bg: #ffffff;
+        --bg-subtle: #f7f7f7;
+        --text: #2a2a2a;
+        --text-muted: #6b7280;
+        --text-faint: #9098a3;
+        --link: #2563eb;
+        --border: #e3e3e3;
+        --selection: #d7e3ff;
+        --btn-primary-bg: #2563eb;
+      }
+
+      [data-theme="dark"] {
+        --bg: #1b1c1e;
+        --bg-subtle: #232427;
+        --text: #cdcfd2;
+        --text-muted: #969aa1;
+        --text-faint: #6b7280;
+        --link: #7aa2f7;
+        --border: #34363a;
+        --selection: #2b3a5e;
+        --btn-primary-bg: #3b5bdb;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      [hidden] {
+        display: none !important;
+      }
+
+      html {
+        font-family: var(--font-sans);
+        font-size: 18px;
+        line-height: 1.6;
+        background: var(--bg);
+        color: var(--text);
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 34rem;
+        margin: 0 auto;
+        padding: 3rem 1.25rem;
+      }
+
+      ::selection {
+        background: var(--selection);
+      }
+
+      h1 {
+        font-size: 1.7rem;
+        font-weight: 700;
+        line-height: 1.25;
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        margin: 0.8rem 0;
+      }
+
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        margin: 0 0 0.6rem;
+      }
+
+      .muted {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      .muted-slot {
+        color: var(--text-faint);
+        font-size: 0.9rem;
+        font-family: var(--font-mono);
+        border-left: 2px solid var(--border);
+        padding-left: 0.75rem;
+      }
+
+      .emphasis {
+        font-weight: 700;
+      }
+
+      .signoff {
+        margin-top: 2rem;
+        color: var(--text-faint);
+        font-size: 0.95rem;
+      }
+
+      /* ---- buttons: same shape language as global.css .btn ---- */
+      .btn {
+        display: inline-block;
+        font-family: inherit;
+        font-size: 0.92rem;
+        padding: 0.45rem 0.85rem;
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        background: var(--bg);
+        color: var(--link);
+        text-decoration: none;
+        cursor: pointer;
+        text-align: center;
+      }
+      .btn:hover {
+        border-color: var(--link);
+      }
+      .btn-primary {
+        background: var(--btn-primary-bg);
+        border-color: var(--btn-primary-bg);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        opacity: 0.9;
+        color: #fff;
+      }
+      .btn-quiet {
+        border-color: transparent;
+        color: var(--text-muted);
+      }
+      .btn-quiet:hover {
+        border-color: var(--border);
+        color: var(--text);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        align-items: center;
+        margin-top: 1.75rem;
+      }
+
+      .slots {
+        display: grid;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+      }
+
+      /* ---- the gate ---- */
+      .gate-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+      }
+      .gate-input {
+        flex: 1 1 14rem;
+        font-family: inherit;
+        font-size: 0.95rem;
+        padding: 0.45rem 0.7rem;
+        color: var(--text);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 5px;
+      }
+      .gate-input:focus {
+        outline: 2px solid var(--link);
+        outline-offset: 1px;
+        border-color: var(--link);
+      }
+      .gate-input::placeholder {
+        color: var(--text-faint);
+      }
+      .hint {
+        margin-top: 1rem;
+        font-size: 0.85rem;
+        color: var(--text-faint);
+      }
+      .status {
+        margin-top: 0.9rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        min-height: 1.4em;
+      }
+
+      .shake {
+        animation: shake 0.35s ease;
+      }
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .shake { animation: none; }
+      }
+
+      /* Panels fade in so the reveal is not abrupt. */
+      [data-panel] {
+        animation: fade 0.45s ease both;
+      }
+      @keyframes fade {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        [data-panel] { animation: none; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <section id="gate">
+        <p class="eyebrow">Private</p>
+        <h1>One question first.</h1>
+        <p class="muted">
+          This page is meant for exactly one person. If that's you, you already
+          know the answer.
+        </p>
+
+        <form class="gate-form" id="gate-form" autocomplete="off">
+          <input
+            class="gate-input"
+            id="pw"
+            type="password"
+            placeholder="the answer"
+            autocomplete="off"
+            autocapitalize="off"
+            autocorrect="off"
+            spellcheck="false"
+            aria-label="Password"
+          />
+          <button class="btn btn-primary" type="submit" id="go">Unlock</button>
+        </form>
+
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+        <p class="hint">You know this one.</p>
+      </section>
+
+      <div id="vault" hidden></div>
+    </main>
+
+    <script id="payload" type="application/json">{"v":1,"it":310000,"s":"G7Fu1H3y7Is2Foz2gGZIHA==","i":"9iURxlYOvtsq8nJT","d":"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"}</script>
+
+    <script>
+      (function () {
+        // Match the site's theme choice if the visitor has one stored.
+        try {
+          var stored = localStorage.getItem("theme");
+          var dark = stored
+            ? stored === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (dark) {
+            document.documentElement.setAttribute("data-theme", "dark");
+            var m = document.querySelector('meta[name="theme-color"]');
+            if (m) m.setAttribute("content", "#1b1c1e");
+          }
+        } catch (e) {}
+
+        var payload = JSON.parse(
+          document.getElementById("payload").textContent
+        );
+        var gate = document.getElementById("gate");
+        var vault = document.getElementById("vault");
+        var form = document.getElementById("gate-form");
+        var input = document.getElementById("pw");
+        var status = document.getElementById("status");
+        var go = document.getElementById("go");
+
+        function b64(s) {
+          var bin = atob(s);
+          var out = new Uint8Array(bin.length);
+          for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+          return out;
+        }
+
+        // Forgiving on case and stray spaces, so a typed phrase still works.
+        // Must stay identical to normalize() in lock.mjs.
+        function normalize(s) {
+          return s.normalize("NFKC").trim().toLowerCase().replace(/\s+/g, " ");
+        }
+
+        async function unlock(password) {
+          var enc = new TextEncoder();
+          var km = await crypto.subtle.importKey(
+            "raw",
+            enc.encode(normalize(password)),
+            "PBKDF2",
+            false,
+            ["deriveKey"]
+          );
+          var key = await crypto.subtle.deriveKey(
+            {
+              name: "PBKDF2",
+              salt: b64(payload.s),
+              iterations: payload.it,
+              hash: "SHA-256",
+            },
+            km,
+            { name: "AES-GCM", length: 256 },
+            false,
+            ["decrypt"]
+          );
+          var plain = await crypto.subtle.decrypt(
+            { name: "AES-GCM", iv: b64(payload.i) },
+            key,
+            b64(payload.d)
+          );
+          return new TextDecoder().decode(plain);
+        }
+
+        function show(id) {
+          var panels = vault.querySelectorAll("[data-panel]");
+          for (var i = 0; i < panels.length; i++) {
+            var p = panels[i];
+            p.hidden = p.getAttribute("data-panel") !== id;
+            if (!p.hidden) {
+              // restart the fade for the newly shown panel
+              p.style.animation = "none";
+              void p.offsetWidth;
+              p.style.animation = "";
+            }
+          }
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function wire() {
+          var steps = vault.querySelectorAll("[data-goto]");
+          for (var i = 0; i < steps.length; i++) {
+            steps[i].addEventListener("click", function () {
+              var slot = this.getAttribute("data-slot");
+              if (slot) {
+                var outs = vault.querySelectorAll("[data-slot-out]");
+                for (var j = 0; j < outs.length; j++) {
+                  outs[j].textContent = slot;
+                }
+                var links = vault.querySelectorAll("[data-slot-href]");
+                for (var k = 0; k < links.length; k++) {
+                  links[k].href = links[k]
+                    .getAttribute("data-slot-href")
+                    .replace("%s", encodeURIComponent(slot));
+                }
+              }
+              show(this.getAttribute("data-goto"));
+            });
+          }
+        }
+
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+          var pw = input.value;
+          if (!pw) return;
+
+          if (!window.crypto || !window.crypto.subtle) {
+            status.textContent =
+              "This needs a secure connection. Try the https:// link.";
+            return;
+          }
+
+          go.disabled = true;
+          status.textContent = "Checking...";
+
+          try {
+            var html = await unlock(pw);
+            vault.innerHTML = html;
+            wire();
+            gate.hidden = true;
+            vault.hidden = false;
+            document.title = "Hi";
+          } catch (err) {
+            go.disabled = false;
+            status.textContent = "That's not it. Try again.";
+            input.select();
+            gate.classList.remove("shake");
+            void gate.offsetWidth;
+            gate.classList.add("shake");
+          }
+        });
+
+        input.focus();
+      })();
+    </script>
+  </body>
+</html>
